@@ -4,6 +4,7 @@ import urllib.request
 import tkinter as tk
 import time
 import os
+import sys
 """
 Get Text
 """
@@ -14,22 +15,25 @@ window.geometry("200x150+1500+100")
 def getTextInput():
     global Research_text
     Research_text=textExample.get("1.0","end")
-    window.quit()
-
+    window.destroy()
+    
 textExample=tk.Text(window, height=5)
 textExample.pack()
+
 btnRead=tk.Button(window, height=1, width=15, text="Download Image", 
                     command=getTextInput)
-
 btnRead.pack()
+
 window.mainloop()
+if Research_text == "\n":
+    sys.exit()
 """
 Research Image
 """
 driver = webdriver.Chrome("chromedriver.exe")
-options = webdriver.ChromeOptions()
-options.add_experimental_option('excludeSwitches', ['enable-logging'])
-driver = webdriver.Chrome(options=options)
+# options = webdriver.ChromeOptions()
+# options.add_experimental_option('excludeSwitches', ['enable-logging'])
+# driver = webdriver.Chrome(options=options)
 driver.implicitly_wait(10)
 driver.get("https://www.google.com/imghp?hl=ko&tab=8i")
 ### insert image name
@@ -64,7 +68,7 @@ index = 0
 file_name = ""
 for image in images:
     try:
-        driver.implicitly_wait(5)
+        driver.implicitly_wait(2)
         image.click()
         image_link = str(driver.find_element(By.CSS_SELECTOR, "img.n3VNCb.KAlRDb").get_attribute("src"))
         ### distribute file name
