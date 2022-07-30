@@ -50,10 +50,10 @@ if IMAGE_NAME == "" or LIMIT_TRYS == "":
 """
 Research Image
 """
-driver = webdriver.Chrome("chromedriver.exe")
-# options = webdriver.ChromeOptions()
-# options.add_experimental_option('excludeSwitches', ['enable-logging'])
-# driver = webdriver.Chrome(options=options)
+# driver = webdriver.Chrome("chromedriver.exe")
+options = webdriver.ChromeOptions()
+options.add_experimental_option('excludeSwitches', ['enable-logging'])
+driver = webdriver.Chrome(options=options)
 driver.implicitly_wait(10)
 driver.get("https://www.google.com/imghp?hl=ko&tab=8i")
 ### insert image name
@@ -109,5 +109,6 @@ for image in images:
         index += 1
     except:
         print("!!!Image is blocked!!!")
+        pass
 os.system("cls")
 driver.close()
