@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 import urllib.request
 import tkinter as tk
 import time
@@ -10,22 +11,41 @@ Get Text
 """
 window = tk.Tk()
 window.title("Download Image")
-window.geometry("200x150+1500+100")
+window.geometry("300x150+1000+100")
+window.resizable(False, False)
 
-def getTextInput():
-    global Research_text
-    Research_text=textExample.get("1.0","end")
+# configure the grid
+window.columnconfigure(0, weight=1)
+window.columnconfigure(1, weight=3)
+
+def get_text():
+    global IMAGE_NAME
+    global LIMIT_TRYS
+    IMAGE_NAME = Image_name_entry.get()
+    LIMIT_TRYS = Limit_trys_entry.get()
     window.destroy()
-    
-textExample=tk.Text(window, height=5)
-textExample.pack()
 
-btnRead=tk.Button(window, height=1, width=15, text="Download Image", 
-                    command=getTextInput)
-btnRead.pack()
+### Image_name
+Image_name_label = tk.Label(window, text="Insert Image name:")
+Image_name_label.grid(column=0, row=0, sticky=tk.W, padx=5, pady=5)
+
+Image_name_entry = tk.Entry(window)
+Image_name_entry.grid(column=1, row=0, sticky=tk.E, padx=5, pady=5)
+
+### Limit_trys
+Limit_trys_label = tk.Label(window, text="Insert Image number:")
+Limit_trys_label.grid(column=0, row=1, sticky=tk.W, padx=5, pady=5)
+
+Limit_trys_entry = tk.Entry(window)
+Limit_trys_entry.grid(column=1, row=1, sticky=tk.E, padx=5, pady=5)
+
+### get text button
+login_button = tk.Button(window, text="Download", command=get_text)
+login_button.grid(column=1, row=3, sticky=tk.E, padx=5, pady=5)
 
 window.mainloop()
-if Research_text == "\n":
+
+if IMAGE_NAME == "" or LIMIT_TRYS == "":
     sys.exit()
 """
 Research Image
@@ -38,7 +58,8 @@ driver.implicitly_wait(10)
 driver.get("https://www.google.com/imghp?hl=ko&tab=8i")
 ### insert image name
 RESEARCH_BOX = driver.find_element(By.CLASS_NAME, "gLFyf.gsfi")
-RESEARCH_BOX.send_keys(Research_text)
+RESEARCH_BOX.send_keys(IMAGE_NAME) ##############################
+RESEARCH_BOX.send_keys(Keys.RETURN)
 """
 Get every Image
 """
@@ -67,6 +88,8 @@ images = driver.find_elements(By.CSS_SELECTOR, "img.rg_i.Q4LuWd")
 index = 0
 file_name = ""
 for image in images:
+    if index == int(LIMIT_TRYS):
+        break
     try:
         driver.implicitly_wait(2)
         image.click()
