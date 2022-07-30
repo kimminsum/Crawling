@@ -1,6 +1,5 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-# from selenium.webdriver.common.keys import Keys
 import urllib.request
 import tkinter as tk
 import time
@@ -40,18 +39,16 @@ RESEARCH_BOX.send_keys(Research_text)
 Get every Image
 """
 SCROLL_PAUSE_SEC = 1
-
-# 스크롤 높이 가져옴
+### get scroll height
 last_height = driver.execute_script("return document.body.scrollHeight")
 
 while True:
-    # 끝까지 스크롤 다운
+    ### scroll down to end
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-
-    # 1초 대기
+    ### wait for 1 sec
     time.sleep(SCROLL_PAUSE_SEC)
 
-    # 스크롤 다운 후 스크롤 높이 다시 가져옴
+    ### get scroll height again after scrolling down
     new_height = driver.execute_script("return document.body.scrollHeight")
     if new_height == last_height:
         try:
@@ -67,9 +64,10 @@ index = 0
 file_name = ""
 for image in images:
     try:
-        driver.implicitly_wait(2)
+        driver.implicitly_wait(5)
         image.click()
         image_link = str(driver.find_element(By.CSS_SELECTOR, "img.n3VNCb.KAlRDb").get_attribute("src"))
+        ### distribute file name
         if ".jpg" in image_link:
             file_name = f"img/{index}.jpg"
         elif ".jpeg" in image_link:
@@ -79,6 +77,7 @@ for image in images:
         else:
             print("!!!Out of style!!!")
             continue
+        ### download image in f"img/{number}.png"
         urllib.request.urlretrieve(str(image_link), str(file_name))
         index += 1
     except:
