@@ -10,7 +10,7 @@ import sys
 Get Text
 """
 window = tk.Tk()
-window.title("chromedriver")
+window.title("ImageDownloader")
 window.geometry("300x150+1000+100")
 window.resizable(False, False)
 
@@ -50,10 +50,10 @@ if IMAGE_NAME == "" or LIMIT_TRYS == "":
 """
 Research Image
 """
-# driver = webdriver.Chrome("chromedriver.exe")
-options = webdriver.ChromeOptions()
-options.add_experimental_option('excludeSwitches', ['enable-logging'])
-driver = webdriver.Chrome(options=options)
+driver = webdriver.Chrome("/home/kar7mp5/바탕화면/Crawling/chromedriver")
+# options = webdriver.ChromeOptions()
+# options.add_experimental_option('excludeSwitches', ['enable-logging'])
+# driver = webdriver.Chrome(options=options)
 driver.implicitly_wait(10)
 driver.get("https://www.google.com/imghp?hl=ko&tab=8i")
 ### insert image name
@@ -96,11 +96,11 @@ for image in images:
         image_link = str(driver.find_element(By.CSS_SELECTOR, "img.n3VNCb.KAlRDb").get_attribute("src"))
         ### distribute file name
         if ".jpg" in image_link:
-            file_name = f"img/{index}.jpg"
+            file_name = f"/home/kar7mp5/바탕화면/Crawling/image/img{index}.jpg"
         elif ".jpeg" in image_link:
-            file_name = f"img/{index}.jpeg"
+            file_name = f"/home/kar7mp5/바탕화면/Crawling/image/img{index}.jpeg"
         elif ".png" in image_link:
-            file_name = f"img/{index}.png"
+            file_name = f"/home/kar7mp5/바탕화면/Crawling/image/img{index}.png"
         else:
             print("!!!Out of style!!!")
             continue
