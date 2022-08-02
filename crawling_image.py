@@ -10,7 +10,7 @@ import sys
 Get Text
 """
 window = tk.Tk()
-window.title("Download Image")
+window.title("chromedriver")
 window.geometry("300x150+1000+100")
 window.resizable(False, False)
 
