@@ -96,11 +96,11 @@ for image in images:
         image_link = str(driver.find_element(By.CSS_SELECTOR, "img.n3VNCb.KAlRDb").get_attribute("src"))
         ### distribute file name
         if ".jpg" in image_link:
-            file_name = f"/home/kar7mp5/바탕화면/Crawling/image/img{index}.jpg"
+            file_name = f"/home/kar7mp5/바탕화면/Crawling/image/img/{index}.jpg"
         elif ".jpeg" in image_link:
-            file_name = f"/home/kar7mp5/바탕화면/Crawling/image/img{index}.jpeg"
+            file_name = f"/home/kar7mp5/바탕화면/Crawling/image/img/{index}.jpeg"
         elif ".png" in image_link:
-            file_name = f"/home/kar7mp5/바탕화면/Crawling/image/img{index}.png"
+            file_name = f"/home/kar7mp5/바탕화면/Crawling/image/img/{index}.png"
         else:
             print("!!!Out of style!!!")
             continue

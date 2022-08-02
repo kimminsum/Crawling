@@ -21,51 +21,51 @@ time.sleep(2)
 username_input = driver.find_element(By.XPATH, '/html/body/div/section/div/div[1]/div[1]/form/input[11]')
 username_input.send_keys("mp5kar7")
 time.sleep(1)
-password_input = driver.find_element_by_xpath('/html/body/div/section/div/div[1]/div[1]/form/span/input')
+password_input = driver.find_element(By.XPATH,'/html/body/div/section/div/div[1]/div[1]/form/span/input')
 password_input.send_keys("ms041005a")
 password_input.send_keys(Keys.RETURN)
 time.sleep(3)
 
 
 # 팝업창 
-driver.find_element_by_xpath('/html/body/div[2]/section/div[5]/div/div[3]/button/span').click()
+driver.find_element(By.XPATH,'/html/body/div[2]/section/div[4]/div/div[3]/button').click()
 time.sleep(2)
 # 팝업창 2
-driver.find_element_by_xpath('/html/body/div[2]/nav/div/div[1]/div/ul/li[5]/a').click()
+driver.find_element(By.XPATH,'/html/body/div[2]/nav/div/div[1]/div/ul/li[5]/a').click()
 time.sleep(2)
 # 기출
-driver.find_element_by_xpath('/html/body/div[2]/nav/div/div[1]/div/ul/li[5]/a').click()
+driver.find_element(By.XPATH,'/html/body/div[2]/nav/div/div[1]/div/ul/li[5]/a').click()
 
-driver.find_element_by_xpath('/html/body/div[2]/section/div/div[2]/form/div[2]/div[1]/dl/dd[1]/select[1]').click()
+driver.find_element(By.XPATH,'/html/body/div[2]/section/div/div[2]/form/div[2]/div[1]/dl/dd[1]/select[1]').click()
 
-driver.find_element_by_xpath('/html/body/div[2]/section/div/div[2]/form/div[2]/div[1]/dl/dd[1]/select[1]/option[9]').click()
+driver.find_element(By.XPATH,'/html/body/div[2]/section/div/div[2]/form/div[2]/div[1]/dl/dd[1]/select[1]/option[9]').click()
 
-driver.find_element_by_xpath('/html/body/div[2]/section/div/div[2]/form/div[2]/div[1]/dl/dd[2]/div/span[1]/input').click()
+driver.find_element(By.XPATH,'/html/body/div[2]/section/div/div[2]/form/div[2]/div[1]/dl/dd[2]/div/span[1]/input').click()
 
 
 
 for i in range(3,10,3):
     time.sleep(0.2)
-    driver.find_element_by_id(f'month0{i}').click()
+    driver.find_element(By.ID,f'month0{i}').click()
 
 
 
-driver.find_element_by_id('subj%d'%subject[sub]).click()
-driver.find_element_by_xpath('/html/body/div[2]/section/div/div[2]/form/div[2]/div[2]/button').click()
+driver.find_element(By.ID,'subj%d'%subject[sub]).click()
+driver.find_element(By.XPATH,'/html/body/div[2]/section/div/div[2]/form/div[2]/div[2]/button').click()
 time.sleep(2)
 
 for i in range(int(round(how_times/15,0)+1)):
     for times in range(0, how_times*3, 3):
         number = int(times/3) - a_link
         if number == 15:
-            driver.find_element_by_xpath('/html/body/div[2]/section/div/div[2]/div/div/a[3]').click()
+            driver.find_element(By.XPATH,'/html/body/div[2]/section/div/div[2]/div/div/a[3]').click()
             break
         time.sleep(1)
-        file_name = driver.find_elements_by_css_selector('.tit')[number+2].text
-        pdflink = driver.find_elements_by_class_name('btn_L_col2.has_down')[times].get_attribute('onclick')
+        file_name = driver.find_elements(By.CSS_SELECTOR,'.tit')[number+2].text
+        pdflink = driver.find_elements(By.CLASS_NAME,'btn_L_col2.has_down')[times].get_attribute('onclick')
         url = 'https://wdown.ebsi.co.kr/W61001/01exam%s'%str(pdflink.split("'")[1])
         response = urllib.request.urlopen(url)
-        file = open(f"Crawling\ebsi\pdf\{file_name}.pdf", 'wb')
+        file = open(f"/home/kar7mp5/바탕화면/Crawling/ebsi/pdf/{file_name}.pdf", 'wb')
         file.write(response.read())
         file.close()
     how_times -= 15
